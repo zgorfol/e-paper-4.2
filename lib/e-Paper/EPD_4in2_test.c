@@ -33,12 +33,12 @@
 
 int EPD_4in2_test(void)
 {
-    printu("EPD_4IN2_test Demo\r\n");
+    printuart("EPD_4IN2_test Demo\r\n");
     if(DEV_Module_Init()!=0){
         return -1;
     }
 
-    printu("e-Paper Init and Clear...\r\n");
+    printuart("e-Paper Init and Clear...\r\n");
     EPD_4IN2_Init();
     EPD_4IN2_Clear();
     DEV_Delay_ms(500);
@@ -48,14 +48,14 @@ int EPD_4in2_test(void)
     /* you have to edit the startup_stm32fxxx.s file and set a big enough heap size */
     UWORD Imagesize = ((EPD_4IN2_WIDTH % 8 == 0)? (EPD_4IN2_WIDTH / 8 ): (EPD_4IN2_WIDTH / 8 + 1)) * EPD_4IN2_HEIGHT;
     if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
-        printu("Failed to apply for black memory...\r\n");
+        printuart("Failed to apply for black memory...\r\n");
         return -1;
     }
-    printu("Paint_NewImage\r\n");
+    printuart("Paint_NewImage\r\n");
     Paint_NewImage(BlackImage, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 0, WHITE);
     
 #if 1   // show image for array   
-    printu("show image for array\r\n");
+    printuart("show image for array\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(WHITE);
     Paint_DrawBitMap(gImage_4in2);
@@ -65,12 +65,12 @@ int EPD_4in2_test(void)
 
 #if 1   // Drawing on the image
     //1.Select Image
-    printu("SelectImage:BlackImage\r\n");
+    printuart("SelectImage:BlackImage\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(WHITE);
 
     // 2.Drawing on the image
-    printu("Drawing:BlackImage\r\n");
+    printuart("Drawing:BlackImage\r\n");
     Paint_DrawPoint(10, 80, BLACK, DOT_PIXEL_1X1, DOT_STYLE_DFT);
     Paint_DrawPoint(10, 90, BLACK, DOT_PIXEL_2X2, DOT_STYLE_DFT);
     Paint_DrawPoint(10, 100, BLACK, DOT_PIXEL_3X3, DOT_STYLE_DFT);
@@ -89,13 +89,13 @@ int EPD_4in2_test(void)
     Paint_DrawString_CN(130, 0, " ���abc", &Font12CN, BLACK, WHITE);
     Paint_DrawString_CN(130, 20, "΢ѩ����", &Font24CN, WHITE, BLACK);
 
-    printu("EPD_Display\r\n");
+    printuart("EPD_Display\r\n");
     EPD_4IN2_Display(BlackImage);
 	DEV_Delay_ms(2000);
 #endif
-	printu("Support for partial refresh, but the refresh effect is not good, but it is not recommended\r\n");
+	printuart("Support for partial refresh, but the refresh effect is not good, but it is not recommended\r\n");
 #if 0
-	printu("Partial refresh\r\n");
+	printuart("Partial refresh\r\n");
     PAINT_TIME sPaint_time;
     sPaint_time.Hour = 12;
     sPaint_time.Min = 34;
@@ -128,12 +128,12 @@ int EPD_4in2_test(void)
 #endif
 
 	EPD_4IN2_Init_4Gray();
-	printu("show Gray------------------------\r\n");
+	printuart("show Gray------------------------\r\n");
 	free(BlackImage);
 	BlackImage = NULL;
 	Imagesize = ((EPD_4IN2_WIDTH % 8 == 0)? (EPD_4IN2_WIDTH / 4 ): (EPD_4IN2_WIDTH / 4 + 1)) * EPD_4IN2_HEIGHT;
     if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
-        printu("Failed to apply for black memory...\r\n");
+        printuart("Failed to apply for black memory...\r\n");
         return -1;
     }
 	Paint_NewImage(BlackImage, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 0, WHITE);
@@ -169,19 +169,19 @@ int EPD_4in2_test(void)
 	DEV_Delay_ms(500);
 	
 	Paint_Clear(WHITE);
-    EPD_4IN2_4GrayDisplay(gImage_4in2_4Gray);
+  EPD_4IN2_4GrayDisplay(gImage_4in2_4Gray);
 	DEV_Delay_ms(2000);
 
 	
 	EPD_4IN2_Clear();
 	
-    printu("Goto Sleep...\r\n");
+    printuart("Goto Sleep...\r\n");
     EPD_4IN2_Sleep();
     free(BlackImage);
     BlackImage = NULL;
 	
     // close 5V
-    printu("close 3.3V, Module enters 0 power consumption ...\r\n");
+    printuart("close 5V, Module enters 0 power consumption ...\r\n");
     DEV_Module_Exit();
     
     return 0;

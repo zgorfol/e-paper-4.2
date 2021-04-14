@@ -33,6 +33,13 @@
 #include "stm32l4xx_hal_spi.h"
 
 extern SPI_HandleTypeDef hspi1;
+extern UART_HandleTypeDef huart2;
+
+void printuart(char *printStr)
+{
+    HAL_UART_Transmit(&huart2, (uint8_t *)printStr, strlen(printStr), 10);
+}
+
 void DEV_SPI_WriteByte(UBYTE value)
 {
     HAL_SPI_Transmit(&hspi1, &value, 1, 1000);

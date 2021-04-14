@@ -66,7 +66,7 @@
 #define __GUI_PAINT_H
 
 #include "DEV_Config.h"
-#include "fonts.h"
+#include "../Fonts/fonts.h"
 
 /**
  * Image attributes

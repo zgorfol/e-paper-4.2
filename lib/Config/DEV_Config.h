@@ -51,7 +51,7 @@
 #include "main.h"
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_gpio.h"
-#include <stdint.h>
+//#include <stdint.h>
 
 /**
  * data
@@ -59,6 +59,8 @@
 #define UBYTE   uint8_t
 #define UWORD   uint16_t
 #define UDOUBLE uint32_t
+
+void printuart(char *printStr);
 
 /**
  * e-Paper GPIO
@@ -79,7 +81,7 @@
 **/
 #define DEV_Delay_ms(__xms) HAL_Delay(__xms);
 
-void DEV_SPI_WriteByte(UBYTE value);
+    void DEV_SPI_WriteByte(UBYTE value);
 
 int DEV_Module_Init(void);
 void DEV_Module_Exit(void);
